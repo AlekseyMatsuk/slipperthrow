@@ -1,19 +1,19 @@
 {
-  "updated": 1790439016,
+  "updated": 1790440171,
   "players": [
     {
       "id": "76561198770275073@steam",
       "steamId": "76561198770275073",
       "name": "Еду на тракторе",
       "avatar": "https://avatars.fastly.steamstatic.com/37834772aee78b9c77b14aa9a1c4dab469bb947c.jpg",
-      "xp": 555
+      "xp": 1450
     },
     {
       "id": "76561198745139240@steam",
       "steamId": "76561198745139240",
       "name": "сын Limon4ika",
       "avatar": "https://avatars.fastly.steamstatic.com/79e6128e2df36d1202fa01a554c1bde50bf1a70e.jpg",
-      "xp": 410
+      "xp": 680
     },
     {
       "id": "76561198787972569@steam",
@@ -23,18 +23,18 @@
       "xp": 340
     },
     {
+      "id": "76561199160768038@steam",
+      "steamId": "76561199160768038",
+      "name": "Kotamogus",
+      "avatar": "https://avatars.fastly.steamstatic.com/218ceffa5e7f35b15f912aea7f58743f4ef2c06a.jpg",
+      "xp": 300
+    },
+    {
       "id": "76561199209522274@steam",
       "steamId": "76561199209522274",
       "name": "/||ZoHaN||\\",
       "avatar": "https://avatars.fastly.steamstatic.com/a9cb103d05e995fdc306d8d273682cae12469848.jpg",
       "xp": 220
-    },
-    {
-      "id": "76561199160768038@steam",
-      "steamId": "76561199160768038",
-      "name": "Kotamogus",
-      "avatar": "https://avatars.fastly.steamstatic.com/218ceffa5e7f35b15f912aea7f58743f4ef2c06a.jpg",
-      "xp": 140
     }
   ]
 }
