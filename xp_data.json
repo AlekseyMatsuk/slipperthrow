@@ -1,6 +1,13 @@
 {
-  "updated": 1790444792,
+  "updated": 1790445001,
   "players": [
+    {
+      "id": "76561198787972569@steam",
+      "steamId": "76561198787972569",
+      "name": "Annorda",
+      "avatar": "https://avatars.fastly.steamstatic.com/c34c75cedbb0a926c5e3ed0ab90c69b304c80973.jpg",
+      "xp": 10000
+    },
     {
       "id": "76561198770275073@steam",
       "steamId": "76561198770275073",
@@ -14,13 +21,6 @@
       "name": "сын Limon4ika",
       "avatar": "https://avatars.fastly.steamstatic.com/79e6128e2df36d1202fa01a554c1bde50bf1a70e.jpg",
       "xp": 680
-    },
-    {
-      "id": "76561198787972569@steam",
-      "steamId": "76561198787972569",
-      "name": "Annorda",
-      "avatar": "https://avatars.fastly.steamstatic.com/c34c75cedbb0a926c5e3ed0ab90c69b304c80973.jpg",
-      "xp": 340
     },
     {
       "id": "76561199160768038@steam",
