@@ -792,7 +792,7 @@
 
           // Проверяем «пульс»: если файл обновлялся менее 3 минут (180 сек) назад — верим флагу online
           const nowSeconds = Math.floor(Date.now() / 1000);
-          const isFresh = data.updated ? (nowSeconds - data.updated < 180) : false;
+          const isFresh = data.updated ? (nowSeconds - data.updated < 300) : false;
           isOnline = Boolean(data.online && isFresh);
         }
 
