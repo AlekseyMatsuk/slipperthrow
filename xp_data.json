@@ -1,5 +1,5 @@
 {
-  "updated": 1790420404,
+  "updated": 1790437356,
   "players": [
     {
       "id": "76561198787972569@steam",
@@ -14,6 +14,13 @@
       "name": "/||ZoHaN||\\",
       "avatar": "https://avatars.fastly.steamstatic.com/a9cb103d05e995fdc306d8d273682cae12469848.jpg",
       "xp": 220
+    },
+    {
+      "id": "76561198770275073@steam",
+      "steamId": "76561198770275073",
+      "name": "Игрок (5073)",
+      "avatar": null,
+      "xp": 140
     }
   ]
 }
