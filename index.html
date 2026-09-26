@@ -770,11 +770,11 @@
         let isOnline = false;
 
         if (Array.isArray(data)) {
-          // Если файл старого формата (простой массив игроков)
+          // Если файл старого формата без статуса и даты — считаем сервер выключенным
           rawList = data;
-          isOnline = true;
+          isOnline = false;
         } else if (typeof data === 'object' && data !== null) {
-          // Если передан расширенный объект с флагом онлайн
+          // Если передан расширенный объект
           if (Array.isArray(data.players)) {
             rawList = data.players;
           } else if (Array.isArray(data.Players)) {
@@ -790,9 +790,9 @@
             }
           }
 
-          // Проверяем актуальность: если метка свежести старше 15 минут (хост выключен) -> оффлайн
+          // Проверяем «пульс»: если файл обновлялся менее 3 минут (180 сек) назад — верим флагу online
           const nowSeconds = Math.floor(Date.now() / 1000);
-          const isFresh = data.updated ? (nowSeconds - data.updated < 200) : true;
+          const isFresh = data.updated ? (nowSeconds - data.updated < 180) : false;
           isOnline = Boolean(data.online && isFresh);
         }
 
