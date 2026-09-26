@@ -1,12 +1,19 @@
 {
-  "updated": 1790438357,
+  "updated": 1790439016,
   "players": [
     {
       "id": "76561198770275073@steam",
       "steamId": "76561198770275073",
       "name": "Еду на тракторе",
       "avatar": "https://avatars.fastly.steamstatic.com/37834772aee78b9c77b14aa9a1c4dab469bb947c.jpg",
-      "xp": 355
+      "xp": 555
+    },
+    {
+      "id": "76561198745139240@steam",
+      "steamId": "76561198745139240",
+      "name": "сын Limon4ika",
+      "avatar": "https://avatars.fastly.steamstatic.com/79e6128e2df36d1202fa01a554c1bde50bf1a70e.jpg",
+      "xp": 410
     },
     {
       "id": "76561198787972569@steam",
@@ -14,13 +21,6 @@
       "name": "Annorda",
       "avatar": "https://avatars.fastly.steamstatic.com/c34c75cedbb0a926c5e3ed0ab90c69b304c80973.jpg",
       "xp": 340
-    },
-    {
-      "id": "76561198745139240@steam",
-      "steamId": "76561198745139240",
-      "name": "сын Limon4ika",
-      "avatar": "https://avatars.fastly.steamstatic.com/79e6128e2df36d1202fa01a554c1bde50bf1a70e.jpg",
-      "xp": 295
     },
     {
       "id": "76561199209522274@steam",
