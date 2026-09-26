@@ -792,7 +792,7 @@
 
           // Проверяем актуальность: если метка свежести старше 15 минут (хост выключен) -> оффлайн
           const nowSeconds = Math.floor(Date.now() / 1000);
-          const isFresh = data.updated ? (nowSeconds - data.updated < 900) : true;
+          const isFresh = data.updated ? (nowSeconds - data.updated < 200) : true;
           isOnline = Boolean(data.online && isFresh);
         }
 
