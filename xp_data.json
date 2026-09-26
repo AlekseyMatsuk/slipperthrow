@@ -1,5 +1,5 @@
 {
-  "updated": 1790437356,
+  "updated": 1790437548,
   "players": [
     {
       "id": "76561198787972569@steam",
@@ -18,8 +18,15 @@
     {
       "id": "76561198770275073@steam",
       "steamId": "76561198770275073",
-      "name": "Игрок (5073)",
-      "avatar": null,
+      "name": "Еду на тракторе",
+      "avatar": "https://avatars.fastly.steamstatic.com/37834772aee78b9c77b14aa9a1c4dab469bb947c.jpg",
+      "xp": 140
+    },
+    {
+      "id": "76561198745139240@steam",
+      "steamId": "76561198745139240",
+      "name": "сын Limon4ika",
+      "avatar": "https://avatars.fastly.steamstatic.com/79e6128e2df36d1202fa01a554c1bde50bf1a70e.jpg",
       "xp": 140
     }
   ]
