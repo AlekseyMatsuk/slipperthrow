@@ -129,12 +129,13 @@
   <section class="relative pt-12 pb-20 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
       
-      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-portal-surface border border-portal-border mb-8 shadow-sm">
-        <span class="relative flex h-2.5 w-2.5">
+      <!-- ДИНАМИЧЕСКИЙ СТАТУС В ШАПКЕ -->
+      <div id="hero-status-container" class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-portal-surface border border-portal-border mb-8 shadow-sm transition-all duration-300">
+        <span id="hero-status-dot" class="relative flex h-2.5 w-2.5">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-portal-cyan opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-portal-cyan"></span>
         </span>
-        <span class="text-xs font-mono text-gray-300 uppercase tracking-wider">Сервер активен // Приятной игры</span>
+        <span id="hero-status-text" class="text-xs font-mono text-gray-300 uppercase tracking-wider">Проверка статуса сервера...</span>
       </div>
 
       <h1 class="text-4xl sm:text-6xl lg:text-7xl font-orbitron font-extrabold tracking-tight mb-6 uppercase">
@@ -187,8 +188,10 @@
             <div>
               <div class="flex items-center gap-3">
                 <h3 class="text-xl sm:text-2xl font-orbitron font-bold text-white">Slipper Throw [PUBLIC]</h3>
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ОНЛАЙН
+                
+                <!-- ДИНАМИЧЕСКИЙ БЕЙДЖ СТАТУСА -->
+                <span id="server-status-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 transition-all duration-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span> ПРОВЕРКА...
                 </span>
               </div>
               <p class="text-sm text-gray-400 mt-1 font-mono">Версия игры: Latest Steam // SCP:SL</p>
@@ -708,7 +711,45 @@
     }
 
     // ==========================================
-    // ЗАГРУЗКА ТОПА ОПЫТА ИЗ xp_data.json
+    // УПРАВЛЕНИЕ ОТОБРАЖЕНИЕМ СТАТУСА СЕРВЕРА
+    // ==========================================
+    function updateServerStatusUI(isOnline) {
+      const badge = document.getElementById('server-status-badge');
+      const heroDot = document.getElementById('hero-status-dot');
+      const heroText = document.getElementById('hero-status-text');
+
+      if (isOnline) {
+        if (badge) {
+          badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+          badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ОНЛАЙН';
+        }
+        if (heroDot) {
+          heroDot.innerHTML = `
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-portal-cyan opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-portal-cyan"></span>
+          `;
+        }
+        if (heroText) {
+          heroText.innerText = "Сервер активен // Приятной игры";
+        }
+      } else {
+        if (badge) {
+          badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-rose-500/10 text-rose-400 border border-rose-500/30";
+          badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> ОФФЛАЙН';
+        }
+        if (heroDot) {
+          heroDot.innerHTML = `
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+          `;
+        }
+        if (heroText) {
+          heroText.innerText = "Сервер временно выключен";
+        }
+      }
+    }
+
+    // ==========================================
+    // ЗАГРУЗКА ТОПА ОПЫТА И СТАТУСА СЕРВЕРА
     // ==========================================
     function extractSteamId(raw) {
       if (!raw) return null;
@@ -719,17 +760,28 @@
     async function loadRealXp() {
       try {
         const res = await fetch('xp_data.json?t=' + Date.now());
-        if (!res.ok) return;
+        if (!res.ok) {
+          updateServerStatusUI(false);
+          return;
+        }
         const data = await res.json();
 
         let rawList = [];
+        let isOnline = false;
+
         if (Array.isArray(data)) {
+          // Если файл старого формата (простой массив игроков)
           rawList = data;
+          isOnline = true;
         } else if (typeof data === 'object' && data !== null) {
-          if (Array.isArray(data.Players)) rawList = data.Players;
-          else if (Array.isArray(data.players)) rawList = data.players;
-          else {
+          // Если передан расширенный объект с флагом онлайн
+          if (Array.isArray(data.players)) {
+            rawList = data.players;
+          } else if (Array.isArray(data.Players)) {
+            rawList = data.Players;
+          } else {
             for (const [key, val] of Object.entries(data)) {
+              if (key === 'online' || key === 'updated') continue;
               if (typeof val === 'object' && val !== null) {
                 rawList.push({ id: key, ...val });
               } else {
@@ -737,21 +789,27 @@
               }
             }
           }
+
+          // Проверяем актуальность: если метка свежести старше 15 минут (хост выключен) -> оффлайн
+          const nowSeconds = Math.floor(Date.now() / 1000);
+          const isFresh = data.updated ? (nowSeconds - data.updated < 900) : true;
+          isOnline = Boolean(data.online && isFresh);
         }
+
+        updateServerStatusUI(isOnline);
 
         const players = [];
         for (const item of rawList) {
           const rawId = String(item.id || item.UserId || item.userId || item.SteamId || item.steamId || item.Key || item.key || '').trim();
-          const lowerId = rawId.toLowerCase();
+          const lowerId = rawId.lower ? rawId.lower() : rawId.toLowerCase();
 
-          // 1. ИГНОРИРУЕМ ТЕХНИЧЕСКИЕ СУЩНОСТИ (ID_Dedicated, Server, Console, Host)
+          // Игнорируем технические сущности (сервер, хост, консоль)
           if (lowerId.includes('dedicated') || lowerId.includes('server') || lowerId.includes('console') || lowerId === 'host') {
             continue;
           }
 
           const steamId = extractSteamId(rawId) || extractSteamId(item.steamId) || extractSteamId(item.UserId);
 
-          // Если это не Steam-игрок и никнейм отсутствует — пропускаем мусорные данные
           if (!steamId && !item.Nickname && !item.nickname && !item.name && !item.Name) {
             continue;
           }
@@ -780,12 +838,11 @@
         players.sort((a, b) => b.xp - a.xp);
         const top = players.slice(0, 10);
 
+        const tbody = document.getElementById('leaderboard-body');
         if (top.length > 0) {
-          const tbody = document.getElementById('leaderboard-body');
           tbody.innerHTML = '';
 
           top.forEach((p, index) => {
-            // Градация рангов по очкам опыта
             let rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-gray-500/10 text-gray-400">Новичок</span>';
             if (p.xp >= 5000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30">Мастер</span>';
             else if (p.xp >= 2000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-orange-500/10 text-orange-400 border border-orange-500/30">Легенда</span>';
@@ -830,13 +887,14 @@
           lucide.createIcons();
         }
       } catch (e) {
-        console.error("Ошибка чтения опыта:", e);
+        console.error("Ошибка загрузки данных сайта:", e);
+        updateServerStatusUI(false);
       }
     }
 
     loadRealXp();
-    // Фоновое автообновление таблицы топа каждые 30 секунд
-    setInterval(loadRealXp, 30000);
+    // Фоновое автообновление таблицы и статуса каждые 20 секунд
+    setInterval(loadRealXp, 20000);
   </script>
 </body>
 </html>
