@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLIPPER THROW // SCP: Secret Laboratory</title>
+  
+  <!-- Шрифты: Orbitron, Inter и JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            portal: {
+              bg: '#080612',
+              surface: 'rgba(15, 12, 28, 0.72)',
+              surfaceHover: 'rgba(23, 18, 43, 0.85)',
+              card: 'rgba(20, 16, 38, 0.65)',
+              border: 'rgba(139, 92, 246, 0.18)',
+              borderActive: 'rgba(0, 245, 212, 0.45)',
+              cyan: '#00f5d4',
+              cyanGlow: '#06b6d4',
+              violet: '#a855f7',
+              violetDark: '#7c3aed',
+              accent: '#8b5cf6'
+            }
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          boxShadow: {
+            'glow-cyan': '0 0 25px rgba(0, 245, 212, 0.25)',
+            'glow-violet': '0 0 25px rgba(168, 85, 247, 0.28)',
+            'glow-combo': '0 0 35px rgba(139, 92, 246, 0.2), 0 0 15px rgba(0, 245, 212, 0.2)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #080612; }
+    ::-webkit-scrollbar-thumb { background: #261f42; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00f5d4; }
+
+    .gradient-brand {
+      background: linear-gradient(135deg, #00f5d4 0%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-[#080612] text-gray-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen relative overflow-x-hidden cyber-grid">
+
+  <!-- Градиентные световые пятна на фоне -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-[-10%] right-[-10%] w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="fixed top-[40%] left-[50%] -translate-x-1/2 w-[700px] h-[400px] bg-violet-700/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+
+  <!-- ШАПКА САЙТА (НАВИГАЦИЯ) -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#080612]/80 border-b border-portal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-portal-cyan to-portal-violet p-[2px] shadow-glow-cyan transition duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-[#0d0a1a] rounded-[10px] flex items-center justify-center">
+            <i data-lucide="shield-alert" class="w-6 h-6 text-portal-cyan transition-transform duration-300 group-hover:rotate-12"></i>
+          </div>
+        </div>
+        <div>
+          <span class="font-orbitron font-extrabold text-xl tracking-wider text-white flex items-center gap-1.5">
+            SLIPPER <span class="text-portal-cyan">THROW</span>
+          </span>
+          <span class="text-[10px] font-mono tracking-widest text-violet-400 block -mt-1 uppercase">SCP: Secret Laboratory</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+        <a href="#servers" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
+          <i data-lucide="server" class="w-4 h-4 text-portal-cyan"></i> Сервер
+        </a>
+        <a href="#donate" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-portal-violet"></i> Донат
+        </a>
+        <a href="#rules" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4 text-pink-400"></i> Правила
+        </a>
+        <a href="#top" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
+          <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i> Топ игроков
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://discord.gg/jbjkWYYt2V" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5865F2]/15 hover:bg-[#5865F2]/25 text-[#5865F2] hover:text-white border border-[#5865F2]/30 transition duration-200 text-sm font-medium">
+          <i data-lucide="disc" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Discord</span>
+        </a>
+
+        <a href="#servers" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-bold text-sm shadow-glow-cyan hover:opacity-95 transition duration-200">
+          <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          <span>Играть</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ГЛАВНЫЙ БАННЕР (HERO) -->
+  <section class="relative pt-12 pb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-portal-surface border border-portal-border mb-8 shadow-sm">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-portal-cyan opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-portal-cyan"></span>
+        </span>
+        <span class="text-xs font-mono text-gray-300 uppercase tracking-wider">Сервер активен // Приятной игры</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-orbitron font-extrabold tracking-tight mb-6 uppercase">
+        Добро пожаловать на <br />
+        <span class="gradient-brand">SLIPPER THROW</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10 leading-relaxed font-normal">
+        Уникальный сервер <span class="text-portal-cyan font-medium">SCP: Secret Laboratory</span> с комфортной стрельбой, честными правилами, системой опыта и привилегией «Тапочек».
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <button onclick="copyIp()" class="flex items-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-cyanGlow text-slate-950 font-orbitron font-bold text-sm tracking-wide shadow-glow-cyan hover:brightness-110 active:scale-95 transition">
+          <i data-lucide="copy" class="w-4 h-4 text-slate-950"></i>
+          <span>СКОПИРОВАТЬ IP СЕРВЕРА</span>
+        </button>
+
+        <a href="https://discord.gg/jbjkWYYt2V" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-6 py-4 rounded-xl bg-portal-surface hover:bg-portal-surfaceHover border border-portal-border hover:border-portal-violet text-white font-orbitron font-bold text-sm tracking-wide transition">
+          <i data-lucide="message-square" class="w-4 h-4 text-portal-violet"></i>
+          <span>НАШ DISCORD СЕРВЕР</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ: СЕРВЕР И СТАТИСТИКА -->
+  <section id="servers" class="py-12 border-t border-portal-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-portal-cyan font-mono text-xs tracking-widest uppercase mb-1">
+            <i data-lucide="activity" class="w-4 h-4"></i> МОНИТОРИНГ
+          </div>
+          <h2 class="text-3xl font-orbitron font-bold text-white">СТАТУС СЕРВЕРА</h2>
+        </div>
+        <div class="text-sm font-mono text-gray-400">
+          Прямое подключение: <code class="text-portal-cyan font-bold">connect 176.117.21.66:7777</code>
+        </div>
+      </div>
+
+      <!-- Карточка игрового сервера -->
+      <div class="p-6 sm:p-8 rounded-2xl bg-portal-card backdrop-blur-md border border-portal-border hover:border-portal-borderActive transition duration-300 shadow-xl">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          
+          <div class="flex items-center gap-5">
+            <div class="w-16 h-16 rounded-2xl bg-[#110e24] border border-portal-border flex items-center justify-center shrink-0">
+              <i data-lucide="cpu" class="w-8 h-8 text-portal-cyan"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-3">
+                <h3 class="text-xl sm:text-2xl font-orbitron font-bold text-white">Slipper Throw [PUBLIC]</h3>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ОНЛАЙН
+                </span>
+              </div>
+              <p class="text-sm text-gray-400 mt-1 font-mono">Версия игры: Latest Steam // SCP:SL</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="px-4 py-3 rounded-xl bg-black/40 border border-portal-border font-mono text-sm sm:text-base text-gray-200 select-all">
+              176.117.21.66:7777
+            </div>
+
+            <button onclick="copyIp()" class="px-5 py-3 rounded-xl bg-portal-surface hover:bg-portal-surfaceHover border border-portal-cyan/40 hover:border-portal-cyan text-portal-cyan font-mono text-sm font-semibold transition flex items-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Копировать</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ: ДОНАТ (ПРИВИЛЕГИЯ ТАПОЧЕК) -->
+  <section id="donate" class="py-16 border-t border-portal-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 text-portal-violet font-mono text-xs tracking-widest uppercase mb-2">
+          <i data-lucide="zap" class="w-4 h-4"></i> ПОДДЕРЖКА ПРОЕКТА
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-orbitron font-bold text-white mb-4">ЕДИНАЯ ПРИВИЛЕГИЯ СЕРВЕРА</h2>
+        <p class="text-gray-400 text-sm sm:text-base">
+          Поддержите развитие проекта и получите эксклюзивные игровые преимущества, резервный слот и роль в сообществе.
+        </p>
+      </div>
+
+      <div class="max-w-xl mx-auto">
+        <div class="relative rounded-3xl p-1 bg-gradient-to-b from-portal-cyan via-portal-violet to-pink-500 shadow-glow-combo">
+          <div class="bg-[#0e0a1f] rounded-[22px] p-8 sm:p-10 relative overflow-hidden">
+            
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-portal-cyan/10 text-portal-cyan border border-portal-cyan/30">
+                  Постоянная привилегия
+                </span>
+                <h3 class="text-3xl font-orbitron font-extrabold text-white mt-3">РОЛЬ «ТАПОЧЕК»</h3>
+                <p class="text-sm font-mono text-purple-300">Игровой префикс: slipper</p>
+              </div>
+
+              <div class="text-right">
+                <span class="text-4xl sm:text-5xl font-orbitron font-extrabold text-white tracking-tight">250</span>
+                <span class="text-lg font-mono text-portal-cyan font-bold">₽</span>
+                <div class="text-xs text-gray-400 font-mono mt-0.5">Единоразово</div>
+              </div>
+            </div>
+
+            <ul class="space-y-4 mb-8 text-sm sm:text-base text-gray-300">
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span><b>Постоянный резервный слот:</b> свободный вход на сервер даже при максимальном онлайне.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span><b>Цветной бейдж в игре:</b> отображение префикса <code>[Slipper]</code> над ником.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span><b>Эксклюзивная роль в Discord:</b> доступ в закрытые каналы и выделенный цвет в списке участников.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span><b>Бессрочный доступ:</b> привилегия выдаётся один раз и навсегда.</span>
+              </li>
+            </ul>
+
+            <button onclick="openDonateModal()" class="w-full py-4 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-orbitron font-extrabold text-sm sm:text-base tracking-wider uppercase shadow-glow-cyan hover:opacity-95 active:scale-98 transition flex items-center justify-center gap-2">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+              <span>ПОЛУЧИТЬ РОЛЬ (250 ₽)</span>
+            </button>
+
+            <div class="mt-4 text-center">
+              <a href="https://www.donationalerts.com/r/slipperthrow" target="_blank" rel="noopener noreferrer" class="text-xs text-gray-400 hover:text-portal-cyan transition font-mono underline underline-offset-4">
+                Или перейти напрямую на страницу DonationAlerts
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ: ПРАВИЛА СЕРВЕРА -->
+  <section id="rules" class="py-16 border-t border-portal-border relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 text-pink-400 font-mono text-xs tracking-widest uppercase mb-2">
+          <i data-lucide="file-text" class="w-4 h-4"></i> СВОД ЗАКОНОВ КОМПЛЕКСА
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-orbitron font-bold text-white mb-3">ПРАВИЛА СЕРВЕРА</h2>
+        <p class="text-gray-400 text-sm">Незнание правил не освобождает от ответственности. Соблюдайте регламент для приятной игры.</p>
+      </div>
+
+      <div class="space-y-6">
+
+        <div class="p-6 rounded-2xl bg-portal-card border border-portal-border">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400 flex items-center justify-center font-orbitron font-bold text-sm">1</div>
+            <h3 class="text-xl font-orbitron font-bold text-white">Основные правила сервера</h3>
+          </div>
+          <ul class="space-y-2.5 text-sm sm:text-base text-gray-300 font-normal">
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.1</span>
+              <span>Администрация сервера оставляет за собой право изменять срок действия наказания по своему усмотрению.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.2</span>
+              <span>Вы несете полную ответственность за все действия, совершенные с вашей учетной записи.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.3</span>
+              <span>Настоящие правила распространяются абсолютно на всех игроков, включая администрацию и модераторов.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.4</span>
+              <span>Незнание правил не освобождает вас от ответственности.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.5</span>
+              <span>Запрещена реклама каких-либо организаций, не связанных с фондом SCP, а также сторонних серверов SCP: Secret Laboratory.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">1.6</span>
+              <span>Запрещена выдача себя за администрацию или персонал сервера.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-portal-card border border-portal-border">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-portal-cyan/10 border border-portal-cyan/30 text-portal-cyan flex items-center justify-center font-orbitron font-bold text-sm">2</div>
+            <h3 class="text-xl font-orbitron font-bold text-white">Правила общения</h3>
+          </div>
+          <ul class="space-y-2.5 text-sm sm:text-base text-gray-300 font-normal">
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">2.1</span>
+              <span>Уважайте личные границы других игроков. Оскорбления на почве ненависти запрещены.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">2.2</span>
+              <span>Использование стороннего софта для микрофона (Soundpad и др.):</span>
+            </li>
+            <li class="flex items-start gap-2.5 pl-6">
+              <span class="text-portal-violet font-mono font-bold">2.2.1</span>
+              <span>Использовать Soundpad разрешено в разумных пределах, не мешая игровому процессу окружающих.</span>
+            </li>
+            <li class="flex items-start gap-2.5 pl-6">
+              <span class="text-portal-violet font-mono font-bold">2.2.2</span>
+              <span>Использовать Soundpad и аналогичные программы <b>строго запрещено</b> в общих голосовых каналах (рация, начало и конец раунда). Исключение: интерком.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">2.3</span>
+              <span>Запрещены намеренные громкие шумы, писк, свист, перегруз микрофона (Earrape).</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-portal-card border border-portal-border">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-portal-violet/10 border border-portal-violet/30 text-portal-violet flex items-center justify-center font-orbitron font-bold text-sm">3</div>
+            <h3 class="text-xl font-orbitron font-bold text-white">Правила игрового процесса</h3>
+          </div>
+          <ul class="space-y-2.5 text-sm sm:text-base text-gray-300 font-normal">
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">3.1</span>
+              <span>Использование любого запрещенного ПО (читов, эксплойтов, скриптов преимущества) строго запрещено и карается постоянной блокировкой.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">3.2</span>
+              <span>Не продлевайте раунд намеренно, если вы последний оставшийся в живых игрок («затягивание времени / прятки»).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">3.3</span>
+              <span>Запрещено расстреливать Класс-D без обоснованной причины. Разрешенные причины для ликвидации:</span>
+            </li>
+            <li class="flex items-start gap-2.5 pl-6">
+              <span class="text-portal-violet font-mono font-bold">3.3.1</span>
+              <span>Прямое неповиновение законным требованиям вооруженного персонала комплекса.</span>
+            </li>
+            <li class="flex items-start gap-2.5 pl-6">
+              <span class="text-portal-violet font-mono font-bold">3.3.2</span>
+              <span>Наличие любого оружия в инвентаре у Класса-D (включая MicroHID / «пылесос»).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">3.4</span>
+              <span>Багоюз: запрещено взбираться в недоступные текстуры и зоны, где SCP или люди не могут достать игрока.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">3.5</span>
+              <span>Суицид или намеренный выход из игры (Leave) при игре за объект SCP.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-portal-card border border-portal-border">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-orbitron font-bold text-sm">4</div>
+            <h3 class="text-xl font-orbitron font-bold text-white">Администрация и контакты</h3>
+          </div>
+          <ul class="space-y-3 text-sm sm:text-base text-gray-300 font-normal">
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">4.1</span>
+              <span>Все решения, принимаемые онлайн-администрацией непосредственно во время игры, являются окончательными.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-portal-cyan font-mono font-bold">4.2</span>
+              <span>Для получения оперативной помощи, подачи жалоб или связи с руководством присоединяйтесь к нашему официальному сообществу:</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-4 mt-6 pt-4 border-t border-portal-border">
+            <a href="https://discord.gg/jbjkWYYt2V" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white font-orbitron font-bold text-xs tracking-wider transition flex items-center gap-2">
+              <i data-lucide="disc" class="w-4 h-4"></i> НАШ DISCORD СЕРВЕР
+            </a>
+            <a href="https://www.donationalerts.com/r/slipperthrow" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:brightness-110 text-white font-orbitron font-bold text-xs tracking-wider transition flex items-center gap-2">
+              <i data-lucide="heart" class="w-4 h-4 fill-current"></i> ПОЖЕРТВОВАНИЕ НА DONATIONALERTS
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ: ТОП ИГРОКОВ (ТАБЛИЦА РАНГОВ XP) -->
+  <section id="top" class="py-16 border-t border-portal-border relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 text-amber-400 font-mono text-xs tracking-widest uppercase mb-1">
+            <i data-lucide="award" class="w-4 h-4"></i> СИСТЕМА ПРОКАЧКИ
+          </div>
+          <h2 class="text-3xl font-orbitron font-bold text-white">ТОП ИГРОКОВ И РАНГИ</h2>
+        </div>
+        <span class="text-xs font-mono text-gray-400">Синхронизировано с плагином XpSystem</span>
+      </div>
+
+      <div class="rounded-2xl bg-portal-card border border-portal-border overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-gray-300">
+            <thead class="text-xs uppercase font-orbitron bg-white/5 border-b border-portal-border text-gray-400">
+              <tr>
+                <th scope="col" class="py-4 px-6">Место</th>
+                <th scope="col" class="py-4 px-6">Игрок</th>
+                <th scope="col" class="py-4 px-6">Ранг</th>
+                <th scope="col" class="py-4 px-6 text-right">Опыт (XP)</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body" class="divide-y divide-portal-border font-mono">
+              <tr class="hover:bg-white/[0.02] transition">
+                <td colspan="4" class="py-8 text-center text-gray-500 font-mono text-sm">
+                  Загрузка данных игроков...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ (FOOTER) -->
+  <footer class="py-12 border-t border-portal-border bg-[#05040d]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-portal-cyan to-portal-violet p-[1px]">
+          <div class="w-full h-full bg-[#0d0a1a] rounded-[7px] flex items-center justify-center">
+            <i data-lucide="shield" class="w-4 h-4 text-portal-cyan"></i>
+          </div>
+        </div>
+        <span class="font-orbitron font-bold text-sm tracking-wider text-gray-300">
+          SLIPPER THROW &copy; 2026
+        </span>
+      </div>
+
+      <div class="text-xs text-gray-500 font-mono text-center sm:text-right">
+        SCP: Secret Laboratory is a registered trademark of Northwood Studios.<br />
+        Сайт игрового сервера Slipper Throw. Фанатский проект для уютной игры.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- МОДАЛЬНОЕ ОКНО: ОФОРМЛЕНИЕ ДОНАТА И ПЕРЕНАПРАВЛЕНИЕ -->
+  <div id="donate-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-lg rounded-2xl bg-[#0e0a1f] border border-portal-border p-6 sm:p-8 shadow-glow-combo transition-transform duration-300 scale-95" id="donate-modal-content">
+      
+      <button onclick="closeDonateModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="modal-step-input">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-portal-cyan/15 text-portal-cyan flex items-center justify-center">
+            <i data-lucide="gift" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-orbitron font-bold text-white">Получение роли «Тапочек»</h3>
+            <p class="text-xs font-mono text-portal-cyan">Сумма: 250 ₽ через DonationAlerts</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-xs font-mono uppercase text-gray-300 mb-1.5">Ваш SteamID64 (или ссылка на профиль)</label>
+            <input type="text" id="input-steamid" placeholder="76561198012345678" class="w-full px-4 py-3 rounded-xl bg-black/40 border border-portal-border focus:border-portal-cyan text-white text-sm font-mono outline-none transition" />
+            <span class="text-[11px] text-gray-400 font-mono mt-1 block">Необходим для привязки резервного слота и бейджа.</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono uppercase text-gray-300 mb-1.5">Ваш Discord (Ник или ID)</label>
+            <input type="text" id="input-discord" placeholder="@username" class="w-full px-4 py-3 rounded-xl bg-black/40 border border-portal-border focus:border-portal-violet text-white text-sm font-mono outline-none transition" />
+            <span class="text-[11px] text-gray-400 font-mono mt-1 block">Для выдачи роли на сервере Discord.</span>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-black/60 border border-portal-border mb-6">
+          <div class="text-[11px] font-mono text-gray-400 mb-1">Сгенерированное сообщение:</div>
+          <div id="da-preview" class="font-mono text-sm text-portal-cyan font-bold break-all">Введите данные выше...</div>
+        </div>
+
+        <button onclick="proceedToRedirect()" class="w-full py-4 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-orbitron font-extrabold text-sm tracking-wider uppercase shadow-glow-cyan hover:opacity-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          <span>ПЕРЕЙТИ К ОПЛАТЕ</span>
+        </button>
+      </div>
+
+      <div id="modal-step-redirect" class="hidden text-center py-2">
+        <div class="w-14 h-14 rounded-2xl bg-portal-cyan/15 text-portal-cyan border border-portal-cyan/30 flex items-center justify-center mx-auto mb-5 shadow-glow-cyan animate-pulse">
+          <i data-lucide="arrow-up-right" class="w-7 h-7"></i>
+        </div>
+
+        <h3 class="text-2xl font-orbitron font-extrabold text-white mb-2">ПЕРЕНАПРАВЛЯЕМ НА ОПЛАТУ...</h3>
+        <p class="text-sm text-gray-400 mb-5">
+          Страница DonationAlerts откроется через <span id="redirect-timer" class="text-portal-cyan font-bold font-mono text-base">3</span> сек.
+        </p>
+
+        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-left mb-6">
+          <div class="flex items-center gap-2 text-amber-400 font-mono font-bold text-xs uppercase mb-1.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i> ОБЯЗАТЕЛЬНОЕ ДЕЙСТВИЕ
+          </div>
+          <p class="text-xs sm:text-sm text-gray-200 leading-relaxed mb-3">
+            Мы уже скопировали данные в ваш буфер обмена. <b>Обязательно вставьте этот текст в поле «Сообщение»</b> при отправке доната на DonationAlerts:
+          </p>
+          <div class="p-2.5 rounded-lg bg-black/70 border border-portal-cyan/40 font-mono text-xs sm:text-sm text-portal-cyan font-bold break-all select-all flex items-center justify-between gap-2">
+            <span id="redirect-copied-text">...</span>
+            <button onclick="reCopyText()" title="Скопировать повторно" class="text-gray-400 hover:text-white p-1">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <button onclick="openDonationAlertsDirect()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-orbitron font-bold text-sm tracking-wider uppercase shadow-glow-cyan hover:opacity-95 transition flex items-center justify-center gap-2">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span>ОТКРЫТЬ СТРАНИЦУ ОПЛАТЫ СЕЙЧАС</span>
+          </button>
+
+          <button onclick="resetModalToInput()" class="text-xs font-mono text-gray-400 hover:text-gray-200 transition">
+            ← Вернуться и изменить данные
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-xl bg-[#0f0c22] border border-portal-cyan text-white shadow-glow-cyan font-mono text-sm">
+    <i data-lucide="check-circle" class="w-5 h-5 text-portal-cyan"></i>
+    <span id="toast-message">Команда скопирована!</span>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const DONATIONALERTS_URL = "https://www.donationalerts.com/r/slipperthrow";
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.innerText = text;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    function copyIp() {
+      const command = "connect 176.117.21.66:7777";
+      navigator.clipboard.writeText(command).then(() => {
+        showToast("Команда 'connect 176.117.21.66:7777' скопирована в буфер!");
+      }).catch(() => {
+        prompt("Скопируйте команду вручную:", command);
+      });
+    }
+
+    const modal = document.getElementById('donate-modal');
+    const modalContent = document.getElementById('donate-modal-content');
+    const stepInput = document.getElementById('modal-step-input');
+    const stepRedirect = document.getElementById('modal-step-redirect');
+    const inputSteam = document.getElementById('input-steamid');
+    const inputDiscord = document.getElementById('input-discord');
+    const daPreview = document.getElementById('da-preview');
+    const redirectCopiedText = document.getElementById('redirect-copied-text');
+    const redirectTimer = document.getElementById('redirect-timer');
+
+    let countdownInterval = null;
+
+    function updatePreview() {
+      const steam = inputSteam.value.trim();
+      const ds = inputDiscord.value.trim();
+
+      if (!steam && !ds) {
+        daPreview.innerText = "Введите данные выше...";
+        return;
+      }
+
+      let result = "";
+      if (steam) result += steam;
+      if (ds) result += (result ? " " : "") + (ds.startsWith("@") ? ds : "@" + ds);
+
+      daPreview.innerText = result;
+    }
+
+    inputSteam.addEventListener('input', updatePreview);
+    inputDiscord.addEventListener('input', updatePreview);
+
+    function openDonateModal() {
+      resetModalToInput();
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-95');
+      modalContent.classList.add('scale-100');
+    }
+
+    function closeDonateModal() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modalContent.classList.remove('scale-100');
+      modalContent.classList.add('scale-95');
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeDonateModal();
+    });
+
+    function resetModalToInput() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      stepInput.classList.remove('hidden');
+      stepRedirect.classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    function proceedToRedirect() {
+      const message = daPreview.innerText.trim();
+      if (!message || message === "Введите данные выше...") {
+        alert("Пожалуйста, укажите ваш SteamID64 и Discord!");
+        return;
+      }
+
+      navigator.clipboard.writeText(message);
+      showToast("Текст для доната скопирован в буфер!");
+
+      redirectCopiedText.innerText = message;
+      stepInput.classList.add('hidden');
+      stepRedirect.classList.remove('hidden');
+      lucide.createIcons();
+
+      let timeLeft = 3;
+      redirectTimer.innerText = timeLeft;
+
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      countdownInterval = setInterval(() => {
+        timeLeft--;
+        redirectTimer.innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          openDonationAlertsDirect();
+        }
+      }, 1000);
+    }
+
+    function openDonationAlertsDirect() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      window.open(DONATIONALERTS_URL, '_blank');
+    }
+
+    function reCopyText() {
+      const text = redirectCopiedText.innerText;
+      navigator.clipboard.writeText(text);
+      showToast("Текст скопирован повторно!");
+    }
+
+    // ==========================================
+    // ЗАГРУЗКА ТОПА ОПЫТА ИЗ xp_data.json
+    // ==========================================
+    function extractSteamId(raw) {
+      if (!raw) return null;
+      const m = String(raw).match(/7656119\d{10}/);
+      return m ? m[0] : null;
+    }
+
+    async function loadRealXp() {
+      try {
+        const res = await fetch('xp_data.json?t=' + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+
+        let rawList = [];
+        if (Array.isArray(data)) {
+          rawList = data;
+        } else if (typeof data === 'object' && data !== null) {
+          if (Array.isArray(data.Players)) rawList = data.Players;
+          else if (Array.isArray(data.players)) rawList = data.players;
+          else {
+            for (const [key, val] of Object.entries(data)) {
+              if (typeof val === 'object' && val !== null) {
+                rawList.push({ id: key, ...val });
+              } else {
+                rawList.push({ id: key, xp: val });
+              }
+            }
+          }
+        }
+
+        const players = [];
+        for (const item of rawList) {
+          const rawId = String(item.id || item.UserId || item.userId || item.SteamId || item.steamId || item.Key || item.key || '').trim();
+          const lowerId = rawId.toLowerCase();
+
+          // 1. ИГНОРИРУЕМ ТЕХНИЧЕСКИЕ СУЩНОСТИ (ID_Dedicated, Server, Console, Host)
+          if (lowerId.includes('dedicated') || lowerId.includes('server') || lowerId.includes('console') || lowerId === 'host') {
+            continue;
+          }
+
+          const steamId = extractSteamId(rawId) || extractSteamId(item.steamId) || extractSteamId(item.UserId);
+
+          // Если это не Steam-игрок и никнейм отсутствует — пропускаем мусорные данные
+          if (!steamId && !item.Nickname && !item.nickname && !item.name && !item.Name) {
+            continue;
+          }
+
+          const explicitNick = item.name || item.Name || item.Nickname || item.nickname || item.Nick || item.nick || item.DisplayName || item.displayName || item.PlayerName || item.playerName || '';
+          const hasRealNick = explicitNick && !explicitNick.match(/^7656119\d{10}(@steam)?$/i);
+
+          const xpVal = item.TotalXp ?? item.totalXp ?? item.Xp ?? item.xp ?? item.XP ?? item.Exp ?? item.Score ?? item.Points ?? 0;
+          const numXp = typeof xpVal === 'number' ? xpVal : parseInt(xpVal, 10) || 0;
+
+          let displayName = explicitNick;
+          if (!hasRealNick) {
+            displayName = steamId ? `Игрок (${steamId.slice(-4)})` : rawId;
+          }
+
+          players.push({
+            id: rawId,
+            steamId: steamId,
+            name: displayName,
+            avatar: item.avatar || item.Avatar || null,
+            xp: numXp
+          });
+        }
+
+        // Сортировка по убыванию очков опыта
+        players.sort((a, b) => b.xp - a.xp);
+        const top = players.slice(0, 10);
+
+        if (top.length > 0) {
+          const tbody = document.getElementById('leaderboard-body');
+          tbody.innerHTML = '';
+
+          top.forEach((p, index) => {
+            // Градация рангов по очкам опыта
+            let rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-gray-500/10 text-gray-400">Новичок</span>';
+            if (p.xp >= 5000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30">Мастер</span>';
+            else if (p.xp >= 2000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-orange-500/10 text-orange-400 border border-orange-500/30">Легенда</span>';
+            else if (p.xp >= 1000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">Элита</span>';
+            else if (p.xp >= 500) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Ветеран</span>';
+            else if (p.xp >= 200) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">Боец</span>';
+
+            const placeColor = index === 0 ? 'text-amber-400' : (index === 1 ? 'text-slate-300' : (index === 2 ? 'text-amber-600' : 'text-gray-400'));
+            const crownIcon = index === 0 ? '<i data-lucide="crown" class="w-4 h-4 inline-block ml-1"></i>' : '';
+
+            let avatarHtml = `<span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-gray-400 font-mono">🎮</span>`;
+            if (p.avatar) {
+              avatarHtml = `<img src="${p.avatar}" alt="" class="w-6 h-6 rounded-full border border-portal-cyan/40" />`;
+            }
+
+            let nameHtml = `<span class="player-name">${p.name}</span>`;
+            if (p.steamId) {
+              nameHtml = `
+                <a href="https://steamcommunity.com/profiles/${p.steamId}" target="_blank" rel="noopener noreferrer" class="hover:text-portal-cyan transition underline underline-offset-2">
+                  ${p.name}
+                </a>
+              `;
+            }
+
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-white/[0.02] transition";
+            tr.innerHTML = `
+              <td class="py-4 px-6 font-bold ${placeColor} whitespace-nowrap">
+                #${index + 1} ${crownIcon}
+              </td>
+              <td class="py-4 px-6 font-sans font-semibold text-white">
+                <div class="flex items-center gap-2.5">
+                  ${avatarHtml}
+                  ${nameHtml}
+                </div>
+              </td>
+              <td class="py-4 px-6 whitespace-nowrap">${rankBadge}</td>
+              <td class="py-4 px-6 text-right font-bold text-portal-cyan whitespace-nowrap">${p.xp.toLocaleString()} XP</td>
+            `;
+            tbody.appendChild(tr);
+          });
+          lucide.createIcons();
+        }
+      } catch (e) {
+        console.error("Ошибка чтения опыта:", e);
+      }
+    }
+
+    loadRealXp();
+    // Фоновое автообновление таблицы топа каждые 30 секунд
+    setInterval(loadRealXp, 30000);
+  </script>
+</body>
+</html>
