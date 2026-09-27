@@ -1,12 +1,12 @@
 {
-  "updated": 1790506681,
+  "updated": 1790507281,
   "players": [
     {
       "id": "76561198787972569@steam",
       "steamId": "76561198787972569",
       "name": "Annorda",
       "avatar": "https://avatars.fastly.steamstatic.com/c34c75cedbb0a926c5e3ed0ab90c69b304c80973.jpg",
-      "xp": 10980
+      "xp": 11040
     },
     {
       "id": "76561198770275073@steam",
@@ -27,7 +27,7 @@
       "steamId": "76561199822576361",
       "name": "КАПЧЁНЫЙ",
       "avatar": "https://avatars.fastly.steamstatic.com/d903a6fcc778a089a5f720171c9594f420777050.jpg",
-      "xp": 320
+      "xp": 545
     },
     {
       "id": "76561199160768038@steam",
