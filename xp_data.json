@@ -1,12 +1,12 @@
 {
-  "updated": 1790508662,
+  "updated": 1790509397,
   "players": [
     {
       "id": "76561198787972569@steam",
       "steamId": "76561198787972569",
       "name": "Annorda",
       "avatar": "https://avatars.fastly.steamstatic.com/c34c75cedbb0a926c5e3ed0ab90c69b304c80973.jpg",
-      "xp": 11230
+      "xp": 11310
     },
     {
       "id": "76561198770275073@steam",
@@ -20,7 +20,7 @@
       "steamId": "76561199822576361",
       "name": "КАПЧЁНЫЙ",
       "avatar": "https://avatars.fastly.steamstatic.com/d903a6fcc778a089a5f720171c9594f420777050.jpg",
-      "xp": 880
+      "xp": 1100
     },
     {
       "id": "76561198745139240@steam",
@@ -48,7 +48,14 @@
       "steamId": "76561199485360057",
       "name": "ivan.the.race",
       "avatar": "https://avatars.fastly.steamstatic.com/21055d0e6e6021ace8a8de8a9d6fe14a97866d62.jpg",
-      "xp": 35
+      "xp": 135
+    },
+    {
+      "id": "76561199644733194@steam",
+      "steamId": "76561199644733194",
+      "name": "иди нах/qq",
+      "avatar": "https://avatars.fastly.steamstatic.com/c22c182b6aef666e14bd9b0799aad79c04dd30d7.jpg",
+      "xp": 20
     }
   ]
 }
