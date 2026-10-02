@@ -142,7 +142,7 @@
           <span class="hidden sm:inline">Discord</span>
         </a>
 
-        <a href="#servers" class="btn-glow-cyan flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-bold text-sm shadow-glow-cyan">
+        <a href="steam://connect/176.117.21.66:7777" class="btn-glow-cyan flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-bold text-sm shadow-glow-cyan">
           <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           <span>Играть</span>
         </a>
@@ -172,8 +172,13 @@
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <button onclick="copyIp()" class="btn-glow-cyan flex items-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-cyanGlow text-slate-950 font-orbitron font-bold text-sm tracking-wide shadow-glow-cyan active:scale-95">
-          <i data-lucide="copy" class="w-4 h-4 text-slate-950"></i>
+        <a href="steam://connect/176.117.21.66:7777" class="btn-glow-cyan flex items-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-orbitron font-bold text-sm tracking-wide shadow-glow-cyan active:scale-95">
+          <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          <span>ПОДКЛЮЧИТЬСЯ</span>
+        </a>
+
+        <button onclick="copyIp()" class="btn-glow-cyan flex items-center gap-3 px-6 py-4 rounded-xl bg-portal-surface hover:bg-portal-surfaceHover border border-portal-cyan/40 text-portal-cyan font-orbitron font-bold text-sm tracking-wide active:scale-95">
+          <i data-lucide="copy" class="w-4 h-4 text-portal-cyan"></i>
           <span>СКОПИРОВАТЬ IP СЕРВЕРА</span>
         </button>
 
@@ -225,6 +230,11 @@
             <div class="px-4 py-3 rounded-xl bg-black/40 border border-portal-border font-mono text-sm sm:text-base text-gray-200 select-all">
               176.117.21.66:7777
             </div>
+
+            <a href="steam://connect/176.117.21.66:7777" class="btn-glow-cyan px-5 py-3 rounded-xl bg-gradient-to-r from-portal-cyan to-portal-violet text-slate-950 font-mono text-sm font-bold flex items-center gap-2">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+              <span>Подключиться</span>
+            </a>
 
             <button onclick="copyIp()" class="btn-glow-cyan px-5 py-3 rounded-xl bg-portal-surface hover:bg-portal-surfaceHover border border-portal-cyan/40 text-portal-cyan font-mono text-sm font-semibold flex items-center gap-2">
               <i data-lucide="copy" class="w-4 h-4"></i>
