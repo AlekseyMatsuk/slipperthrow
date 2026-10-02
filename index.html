@@ -69,6 +69,7 @@
         linear-gradient(to right, rgba(139, 92, 246, 0.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
     }
+    
     /* Эффекты подсветки кнопок при наведении */
     .btn-glow-cyan {
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -133,9 +134,6 @@
         <a href="#rules" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
           <i data-lucide="book-open" class="w-4 h-4 text-pink-400"></i> Правила
         </a>
-        <a href="#top" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2">
-          <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i> Топ игроков
-        </a>
       </nav>
 
       <div class="flex items-center gap-3">
@@ -170,7 +168,7 @@
       </h1>
 
       <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10 leading-relaxed font-normal">
-        Уникальный сервер <span class="text-portal-cyan font-medium">SCP: Secret Laboratory</span> с комфортной стрельбой, честными правилами, системой опыта и привилегией «Тапочек».
+        Уникальный сервер <span class="text-portal-cyan font-medium">SCP: Secret Laboratory</span> с комфортной стрельбой, честными правилами и привилегией «Тапочек».
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
@@ -462,45 +460,6 @@
     </div>
   </section>
 
-  <!-- СЕКЦИЯ: ТОП ИГРОКОВ (ТАБЛИЦА РАНГОВ XP) -->
-  <section id="top" class="py-16 border-t border-portal-border relative">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-        <div>
-          <div class="inline-flex items-center gap-2 text-amber-400 font-mono text-xs tracking-widest uppercase mb-1">
-            <i data-lucide="award" class="w-4 h-4"></i> СИСТЕМА ПРОКАЧКИ
-          </div>
-          <h2 class="text-3xl font-orbitron font-bold text-white">ТОП ИГРОКОВ И РАНГИ</h2>
-        </div>
-        <span class="text-xs font-mono text-gray-400">Синхронизировано с плагином XpSystem</span>
-      </div>
-
-      <div class="rounded-2xl bg-portal-card border border-portal-border overflow-hidden shadow-xl">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm text-gray-300">
-            <thead class="text-xs uppercase font-orbitron bg-white/5 border-b border-portal-border text-gray-400">
-              <tr>
-                <th scope="col" class="py-4 px-6">Место</th>
-                <th scope="col" class="py-4 px-6">Игрок</th>
-                <th scope="col" class="py-4 px-6">Ранг</th>
-                <th scope="col" class="py-4 px-6 text-right">Опыт (XP)</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboard-body" class="divide-y divide-portal-border font-mono">
-              <tr class="hover:bg-white/[0.02] transition">
-                <td colspan="4" class="py-8 text-center text-gray-500 font-mono text-sm">
-                  Загрузка данных игроков...
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ПОДВАЛ (FOOTER) -->
   <footer class="py-12 border-t border-portal-border bg-[#05040d]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -734,136 +693,6 @@
       navigator.clipboard.writeText(text);
       showToast("Текст скопирован повторно!");
     }
-
-    function extractSteamId(raw) {
-      if (!raw) return null;
-      const m = String(raw).match(/7656119\d{10}/);
-      return m ? m[0] : null;
-    }
-
-    async function loadRealXp() {
-      try {
-        const res = await fetch('xp_data.json?t=' + Date.now());
-        if (!res.ok) return;
-        const data = await res.json();
-
-        let rawList = [];
-
-        if (Array.isArray(data)) {
-          rawList = data;
-        } else if (typeof data === 'object' && data !== null) {
-          if (Array.isArray(data.players)) {
-            rawList = data.players;
-          } else if (Array.isArray(data.Players)) {
-            rawList = data.Players;
-          } else {
-            for (const [key, val] of Object.entries(data)) {
-              if (key === 'online' || key === 'updated') continue;
-              if (typeof val === 'object' && val !== null) {
-                rawList.push({ id: key, ...val });
-              } else {
-                rawList.push({ id: key, xp: val });
-              }
-            }
-          }
-        }
-
-        const players = [];
-        for (const item of rawList) {
-          const rawId = String(item.id || item.UserId || item.userId || item.SteamId || item.steamId || item.Key || item.key || '').trim();
-          const lowerId = rawId.lower ? rawId.lower() : rawId.toLowerCase();
-
-          // Игнорируем технические сущности (сервер, хост, консоль)
-          if (lowerId.includes('dedicated') || lowerId.includes('server') || lowerId.includes('console') || lowerId === 'host') {
-            continue;
-          }
-
-          const steamId = extractSteamId(rawId) || extractSteamId(item.steamId) || extractSteamId(item.UserId);
-
-          if (!steamId && !item.Nickname && !item.nickname && !item.name && !item.Name) {
-            continue;
-          }
-
-          const explicitNick = item.name || item.Name || item.Nickname || item.nickname || item.Nick || item.nick || item.DisplayName || item.displayName || item.PlayerName || item.playerName || '';
-          const hasRealNick = explicitNick && !explicitNick.match(/^7656119\d{10}(@steam)?$/i);
-
-          const xpVal = item.TotalXp ?? item.totalXp ?? item.Xp ?? item.xp ?? item.XP ?? item.Exp ?? item.Score ?? item.Points ?? 0;
-          const numXp = typeof xpVal === 'number' ? xpVal : parseInt(xpVal, 10) || 0;
-
-          let displayName = explicitNick;
-          if (!hasRealNick) {
-            displayName = steamId ? `Игрок (${steamId.slice(-4)})` : rawId;
-          }
-
-          players.push({
-            id: rawId,
-            steamId: steamId,
-            name: displayName,
-            avatar: item.avatar || item.Avatar || null,
-            xp: numXp
-          });
-        }
-
-        // Сортировка по убыванию очков опыта
-        players.sort((a, b) => b.xp - a.xp);
-        const top = players.slice(0, 10);
-
-        const tbody = document.getElementById('leaderboard-body');
-        if (top.length > 0) {
-          tbody.innerHTML = '';
-
-          top.forEach((p, index) => {
-            let rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-gray-500/10 text-gray-400">Новичок</span>';
-            if (p.xp >= 5000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30">Мастер</span>';
-            else if (p.xp >= 2000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-orange-500/10 text-orange-400 border border-orange-500/30">Легенда</span>';
-            else if (p.xp >= 1000) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">Элита</span>';
-            else if (p.xp >= 500) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Ветеран</span>';
-            else if (p.xp >= 200) rankBadge = '<span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">Боец</span>';
-
-            const placeColor = index === 0 ? 'text-amber-400' : (index === 1 ? 'text-slate-300' : (index === 2 ? 'text-amber-600' : 'text-gray-400'));
-            const crownIcon = index === 0 ? '<i data-lucide="crown" class="w-4 h-4 inline-block ml-1"></i>' : '';
-
-            let avatarHtml = `<span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[10px] text-gray-400 font-mono">🎮</span>`;
-            if (p.avatar) {
-              avatarHtml = `<img src="${p.avatar}" alt="" class="w-6 h-6 rounded-full border border-portal-cyan/40" />`;
-            }
-
-            let nameHtml = `<span class="player-name">${p.name}</span>`;
-            if (p.steamId) {
-              nameHtml = `
-                <a href="https://steamcommunity.com/profiles/${p.steamId}" target="_blank" rel="noopener noreferrer" class="hover:text-portal-cyan transition underline underline-offset-2">
-                  ${p.name}
-                </a>
-              `;
-            }
-
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-white/[0.02] transition";
-            tr.innerHTML = `
-              <td class="py-4 px-6 font-bold ${placeColor} whitespace-nowrap">
-                #${index + 1} ${crownIcon}
-              </td>
-              <td class="py-4 px-6 font-sans font-semibold text-white">
-                <div class="flex items-center gap-2.5">
-                  ${avatarHtml}
-                  ${nameHtml}
-                </div>
-              </td>
-              <td class="py-4 px-6 whitespace-nowrap">${rankBadge}</td>
-              <td class="py-4 px-6 text-right font-bold text-portal-cyan whitespace-nowrap">${p.xp.toLocaleString()} XP</td>
-            `;
-            tbody.appendChild(tr);
-          });
-          lucide.createIcons();
-        }
-      } catch (e) {
-        console.error("Ошибка загрузки данных сайта:", e);
-      }
-    }
-
-    loadRealXp();
-    // Фоновое автообновление таблицы опыта
-    setInterval(loadRealXp, 30000);
   </script>
 </body>
 </html>
